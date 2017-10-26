@@ -15,11 +15,12 @@ fi
 create user pts1 identified by 'pts1';
 grant all privileges to pts1@localhost for pts1 identified by 'pts1';
 #build modules info table
-create table modules()"`
+create table modules();
+###import all modules to database"`
 `service mysql restart`
 
 `mv ./pts.conf /etc/` || echo '[-] permision deny'
-`mkdir /usr/bin/share/pentoolset-framework` || echo "[-] can't create main derictory"
+`mkdir /usr/share/pentoolset-framework` || echo "[-] can't create main derictory"
 `mv -R ./modules /usr/share/pentoolset-framework` || echo "[-] can't move modules to main derictory"
 `mkdir /usr/lib/pentoolset-framework` || echo "[-] can't create derictory"
 `mv -R ./* /usr/lib/pentoolset-framework` || echo "[-] can't move file to /usr/lib"
