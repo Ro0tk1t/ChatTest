@@ -45,10 +45,11 @@ def use(moduleType,moduleName):
     global module
     global status
     #如果存在此模块则加载之
-    if os.path.exists(modulesPath+moduleType+moduleName+'.py'):
+    if os.path.exists(modulesPath+moduleType+'/'+moduleName+'.py'):
         os.chdir(modulesPath+moduleType)
         print(os.system('ls'))
-        m = __import__(str(moduleName))
+        m = __import__(moduleName)
+        print('test')
         #实例化一个模块
         module = m.moduleStruct
         status = 1
@@ -83,6 +84,7 @@ def set(selection):
 
 #利用
 def exploit():
+    module.main()
     return 
 
 #模块检索
@@ -92,6 +94,7 @@ def search(module):
 
 def main():
     global moduleName
+    print(modulesPath)
     while True:
         print("pts(\033[1;3;30;41;7m%s\033[0m)> "%moduleName,end='')
         op = input()
@@ -105,7 +108,9 @@ def main():
             if opt[0] == 'use':
             #后面可能有多个参数，只取第二个操作符
                 #moduleName = re.findall(r'/(\S+)$',opt[1])[0]
-                moduleType = (opt[1].split(moduleName))[0]
+                tmp = opt[1].split('/')
+                moduleType = tmp[0]
+                moduleName = tmp[1]
                 module = use(moduleType,moduleName)
                 if status == 0:
                     print('[-] %s not exist'%module)
